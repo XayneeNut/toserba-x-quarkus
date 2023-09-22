@@ -1,0 +1,19 @@
+quarkus:
+  swagger-ui:
+    always-include: true
+  log:
+    level: INFO
+  http:
+    cors:
+      ~: true
+    port: 8127
+  datasource:
+    db-kind: mysql
+    username: root
+    password: ""
+    jdbc:
+      url: jdbc:mysql://localhost:3306/toko
+  hibernate-orm:
+    database:
+      generation:
+        ~: none
