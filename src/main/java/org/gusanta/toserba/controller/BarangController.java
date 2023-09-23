@@ -47,7 +47,7 @@ public class BarangController {
     }
 
     @PUT
-    @Path("/update/{id}")
+    @Path("/update")
     @Transactional
     public BarangEntity updateBarang(BarangEntity barangEntity){
         return barangHandler.updateBarang(barangEntity);
