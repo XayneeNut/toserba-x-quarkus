@@ -7,7 +7,8 @@ public record BarangBody(
     String namaBarang,
     Long hargaBarang,
     Long stokBarang,
-    String kodeBarang
+    String kodeBarang,
+    String imageBarang
 ) {
     public BarangEntity mapBarangEntity(){
         var barangEntity = new BarangEntity();
@@ -15,6 +16,7 @@ public record BarangBody(
         barangEntity.hargaBarang = hargaBarang;
         barangEntity.stokBarang = stokBarang;
         barangEntity.kodeBarang = kodeBarang;
+        barangEntity.imageBarang = imageBarang;
         return barangEntity;
     }
 }

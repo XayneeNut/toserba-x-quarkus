@@ -33,6 +33,9 @@ public class BarangEntity extends PanacheEntityBase{
     @Column(name = "kode_barang")
     public String kodeBarang;
 
+    @Column(name = "image_barang")
+    public String imageBarang;
+
     public static Optional<BarangEntity> findBarangENtityById(Long id){
         return find("idBarang = ? 1", id).firstResultOptional();
     }
@@ -45,6 +48,7 @@ public class BarangEntity extends PanacheEntityBase{
         barangEntity.namaBarang = ManipulateUtil.changeItOrNot(namaBarang, barangEntity.namaBarang);
         barangEntity.hargaBarang = ManipulateUtil.changeItOrNot(hargaBarang, barangEntity.hargaBarang);
         barangEntity.stokBarang = ManipulateUtil.changeItOrNot(stokBarang, barangEntity.stokBarang);
+        barangEntity.imageBarang = ManipulateUtil.changeItOrNot(imageBarang, barangEntity.imageBarang);
         return barangEntity;
     }
 }

@@ -11,8 +11,8 @@ import org.gusanta.toserba.model.entity.BarangEntity;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.Response;
 
-@ApplicationScoped
-public class BarangHandler {
+@ApplicationScoped  
+public class BarangHandler {  
     public BarangEntity getBarangById(Long id) {
         return BarangEntity.findBarangENtityById(id).orElseThrow(() -> MessageResponse.idNotFoundException(id));
     }
@@ -27,6 +27,7 @@ public class BarangHandler {
         barang.persist();
         return barang;
     }
+    
 
     public BarangEntity updateBarang(BarangEntity barangEntity) {
         var validatingId = getBarangById(barangEntity.idBarang);

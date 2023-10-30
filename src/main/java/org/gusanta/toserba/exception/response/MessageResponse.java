@@ -4,7 +4,7 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 
 /**
- * Gunakan exception ini jika malas bangod ngetik.
+ * Gunakan exception ini jika anda pemalas
  *
  * @author Bayu , Gus Anta
  * @since 26 Des 2022
@@ -14,6 +14,38 @@ public class MessageResponse {
 
   private MessageResponse() {
   }
+
+  public static WebApplicationException failedToFindDataException(
+      String data,
+      String field) {
+    return new WebApplicationException(
+        Response
+            .status(400)
+            .entity(
+                "{\"field\":\"" +
+                    field +
+                    "\",  \n  \t\"data\":\"" +
+                    data +
+                    "\",\n  \t\"message\":\"NOT FOUND OR FORMAT NOT VALID\"}")
+            .build());
+  }
+
+  public static WebApplicationException failedToFindDataException(
+      String data,
+      String field,
+      String message) {
+    return new WebApplicationException(
+        Response
+            .status(400)
+            .entity(
+                "{\"field\":\"" +
+                    field +
+                    "\",  \n  \t\"data\":\"" +
+                    data +
+                    "\",\n  \t\"message\":\"" + message + "\"}")
+            .build());
+  }
+
 
   public static WebApplicationException fetchMessageException(
       Long id,
