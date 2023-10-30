@@ -36,7 +36,7 @@ public class BarangEntity extends PanacheEntityBase{
     @Column(name = "image_barang")
     public String imageBarang;
 
-    public static Optional<BarangEntity> findBarangENtityById(Long id){
+    public static Optional<BarangEntity> findBarangEntityById(Long id){
         return find("idBarang = ? 1", id).firstResultOptional();
     }
 

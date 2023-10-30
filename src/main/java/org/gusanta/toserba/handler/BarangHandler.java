@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.Response;
 @ApplicationScoped  
 public class BarangHandler {  
     public BarangEntity getBarangById(Long id) {
-        return BarangEntity.findBarangENtityById(id).orElseThrow(() -> MessageResponse.idNotFoundException(id));
+        return BarangEntity.findBarangEntityById(id).orElseThrow(() -> MessageResponse.idNotFoundException(id));
     }
 
     public List<BarangEntity> getAllBarang() {
