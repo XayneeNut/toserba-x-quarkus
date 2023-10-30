@@ -34,4 +34,13 @@ public class JwtTokenController {
 
         return Response.ok(jwt).build();
     }
+
+    @GET
+    @Path("/admin-jwt")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getAdminJwt() {
+        String jwt = JwtUtil.generateAdminToken();
+
+        return Response.ok(jwt).build();
+    }
 }

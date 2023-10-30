@@ -22,4 +22,8 @@ public class JwtUtil {
         return Jwt.issuer("gusanta-jwt").subject("gusanta-jwt").groups("user")
                 .expiresAt(System.currentTimeMillis() + 3600).sign();
     }
+    public static String generateAdminToken() {
+        return Jwt.issuer("gusanta-jwt").subject("gusanta-jwt").groups("admin")
+                .expiresAt(System.currentTimeMillis() + 3600).sign();
+    }
 }
