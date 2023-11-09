@@ -8,7 +8,10 @@ public record BarangBody(
     Long hargaBarang,
     Long stokBarang,
     String kodeBarang,
-    String imageBarang
+    String imageBarang,
+    Long adminAccountEntity,
+    Long hargaJual,
+    String unit
 ) {
     public BarangEntity mapBarangEntity(){
         var barangEntity = new BarangEntity();
@@ -17,6 +20,8 @@ public record BarangBody(
         barangEntity.stokBarang = stokBarang;
         barangEntity.kodeBarang = kodeBarang;
         barangEntity.imageBarang = imageBarang;
+        barangEntity.hargaJual = hargaJual;
+        barangEntity.unit = unit;
         return barangEntity;
     }
 }

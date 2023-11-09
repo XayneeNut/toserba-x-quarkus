@@ -51,6 +51,12 @@ public class AdminAccountController {
     }
 
     @GET
+    @Path("/get/{email}/{password}")
+    public AdminAccountEntity getAdminAccountEntityByEmailAndPassword(String email, String password){
+        return adminAccountHandler.getAdminAccountEntityByEmailAndPassword(email, password);
+    }
+
+    @GET
     @Path("/get-all")
     public List<AdminAccountEntity> getAllAdminAccountEntities(){
         return adminAccountHandler.getAllAdminAccountEntity();

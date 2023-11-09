@@ -63,9 +63,7 @@ public class AdminAccountHandler {
             throw MessageResponse
             .failedToFindDataException(username, "username", "Username is present");
         }
-        String encryptedEmail = BCrypt.hashpw(email, BCrypt.gensalt());
         String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        adminAccountMap.email = encryptedEmail;
         adminAccountMap.password = encryptedPassword;
         adminAccountMap.persist();
         return adminAccountMap;

@@ -1,5 +1,6 @@
 package org.gusanta.toserba.controller;
 
+import org.gusanta.toserba.core.util.CommonStatic;
 import org.gusanta.toserba.core.util.JwtUtil;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -11,7 +12,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/jwt")
+@Path(CommonStatic.V1 + "/jwt")
 @ApplicationScoped
 public class JwtTokenController {
     @Inject

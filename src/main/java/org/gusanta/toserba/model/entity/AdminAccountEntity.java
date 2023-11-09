@@ -54,4 +54,5 @@ public class AdminAccountEntity extends PanacheEntityBase {
     public static List<AdminAccountEntity> findAllAdminAccountEntity(){
         return AdminAccountEntity.listAll();
     }
+
 }

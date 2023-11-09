@@ -34,6 +34,12 @@ public class BarangController {
     }
 
     @GET
+    @Path("/get-by-admin/{id}")
+    public List<BarangEntity> getBarangEntityByAdminId(Long id){
+        return barangHandler.getBarangByAccountId(id);
+    }
+
+    @GET
     @Path("/get-all")
     public List<BarangEntity> getAllBarang(){
         return barangHandler.getAllBarang();
