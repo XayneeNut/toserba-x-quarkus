@@ -65,10 +65,8 @@ public class UserAccountHandler {
         } else if (UserAccountEntity.findUserAccountEntityByUsername(username).isPresent()) {
             throw MessageResponse.failedToFindDataException(username, "username", "username is on used");
         }
-        String encryptedEmail = BCrypt.hashpw(email, BCrypt.gensalt());
         String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         userAccountMap.password = encryptedPassword;
-        userAccountMap.email = encryptedEmail;
         userAccountMap.persist();
         return userAccountMap;
     }

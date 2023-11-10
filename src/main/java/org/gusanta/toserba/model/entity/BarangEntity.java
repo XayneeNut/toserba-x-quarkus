@@ -41,7 +41,7 @@ public class BarangEntity extends PanacheEntityBase {
     public String imageBarang;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "admin_account_id")
     public AdminAccountEntity adminAccountEntity;
 
     @Column(name = "harga_jual")

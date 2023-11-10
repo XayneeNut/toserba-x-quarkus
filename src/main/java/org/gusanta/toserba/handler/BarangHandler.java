@@ -41,13 +41,13 @@ public class BarangHandler {
     public BarangEntity createBarang(BarangBody barangBody) {
         Objects.requireNonNull(barangBody);
         var adminAccountEntity = fetchAdminAccountEntity(barangBody.adminAccountEntity());
-        return  checkingWithCreate(barangBody, adminAccountEntity);
+        return checkingWithCreate(barangBody, adminAccountEntity);
 
     }
 
     public BarangEntity updateBarang(BarangEntity barangEntity) {
         var validatingId = getBarangById(barangEntity.idBarang);
-        barangEntity.updateBarangEntity(validatingId);  
+        barangEntity.updateBarangEntity(validatingId);
         return validatingId;
     }
 

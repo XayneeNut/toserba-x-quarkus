@@ -11,7 +11,8 @@ public record BarangBody(
     String imageBarang,
     Long adminAccountEntity,
     Long hargaJual,
-    String unit
+    String unit,
+    Long userAccountEntity
 ) {
     public BarangEntity mapBarangEntity(){
         var barangEntity = new BarangEntity();
