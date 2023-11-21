@@ -11,6 +11,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.Response;
 
+import org.gusanta.toserba.model.DTO.UserAccountDTO;
 import org.gusanta.toserba.model.body.UserAccountBody;
 
 @ApplicationScoped
@@ -33,6 +34,13 @@ public class UserAccountHandler {
     public UserAccountEntity getUserAccountEntityByPassword(String password) {
         return UserAccountEntity.findUserAccountEntityByPassword(password)
                 .orElseThrow(() -> MessageResponse.idNotFoundException(password));
+    }
+
+    public List<UserAccountDTO> getAllUserAccountEntitiesAsDTO() {
+        List<UserAccountEntity> userAccountEntities = UserAccountEntity.findAllUserAccountEntity();
+        return userAccountEntities.stream()
+                .map(UserAccountDTO::new)
+                .collect(Collectors.toList());
     }
 
     public UserAccountEntity getUserAccountEntityByEmailAndPassword(String email, String password) {

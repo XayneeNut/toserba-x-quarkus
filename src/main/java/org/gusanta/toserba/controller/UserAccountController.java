@@ -1,11 +1,13 @@
 package org.gusanta.toserba.controller;
 
+import java.util.List;
+
 import org.gusanta.toserba.core.util.CommonStatic;
 import org.gusanta.toserba.handler.UserAccountHandler;
+import org.gusanta.toserba.model.DTO.UserAccountDTO;
 import org.gusanta.toserba.model.body.UserAccountBody;
 import org.gusanta.toserba.model.entity.UserAccountEntity;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -26,10 +28,21 @@ public class UserAccountController {
     UserAccountHandler userAccountHandler;
 
     @GET
-    @RolesAllowed("user")
     @Path("/get-id/{id}")
     public UserAccountEntity getUserAccountEntityById(Long id) {
         return userAccountHandler.getUserAccountEntityById(id);
+    }
+
+    @GET
+    @Path("/get-all")
+    public List<UserAccountEntity> getAllUserAccountEntities(){
+        return userAccountHandler.getAllUserAccountEntities();
+    }
+
+    @GET
+    @Path("/get-all-by-profile")
+    public List<UserAccountDTO> getAllByProfile(){
+        return userAccountHandler.getAllUserAccountEntitiesAsDTO();
     }
 
     @GET

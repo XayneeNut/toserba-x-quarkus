@@ -7,10 +7,13 @@ import java.util.Optional;
 import org.gusanta.toserba.core.util.ManipulateUtil;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -39,6 +42,10 @@ public class UserAccountEntity extends PanacheEntityBase {
 
     @Column(name = "image")
     public String image;
+
+    @OneToOne(mappedBy = "userAccountEntity", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn 
+    public UserProfileEntity userProfileEntity;
 
     public static Optional<UserAccountEntity> findUserAccountById(Long id) {
         return find("userAccountId = ? 1", id).firstResultOptional();
