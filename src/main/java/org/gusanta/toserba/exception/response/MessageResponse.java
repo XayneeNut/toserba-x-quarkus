@@ -46,7 +46,6 @@ public class MessageResponse {
             .build());
   }
 
-
   public static WebApplicationException fetchMessageException(
       Long id,
       String object) {
@@ -59,6 +58,22 @@ public class MessageResponse {
                     "\",  \n  \t\"id\": " +
                     id +
                     ",\n  \t\"message\":\"NOT FOUND OR FORMAT NOT VALID\"}")
+            .build());
+  }
+
+  public static WebApplicationException isPersistenException(
+      Long id,
+      String object,
+      String message) {
+    return new WebApplicationException(
+        Response
+            .status(400)
+            .entity(
+                "{\"field\":\"" +
+                    object +
+                    "\",  \n  \t\"id\": " +
+                    id +
+                    ",\n  \t\"message\":\"" + message + "\"}")
             .build());
   }
 

@@ -18,8 +18,7 @@ public record AdminAccountBody(
     LocalDateTime createdAt,
     @JsonDeserialize(converter = TimeDeserialize.class)
     @JsonSerialize(converter = TimeSerialize.class)
-    LocalDateTime updateAt,
-    Long barangEntity
+    LocalDateTime updateAt
 ) {
     public AdminAccountEntity mapUserAccountEntity(){
         AdminAccountEntity AdminAccountEntity = new AdminAccountEntity();

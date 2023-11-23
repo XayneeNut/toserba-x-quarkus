@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.gusanta.toserba.core.util.ManipulateUtil;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,11 +43,10 @@ public class UserAccountEntity extends PanacheEntityBase {
     @Column(name = "updateAt")
     public LocalDateTime updateAt;
 
-    @Column(name = "image")
-    public String image;
-
     @OneToOne(mappedBy = "userAccountEntity", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn 
+    @PrimaryKeyJoinColumn
+    @JsonbTransient
+    @Fetch(FetchMode.JOIN)
     public UserProfileEntity userProfileEntity;
 
     public static Optional<UserAccountEntity> findUserAccountById(Long id) {
@@ -68,9 +70,9 @@ public class UserAccountEntity extends PanacheEntityBase {
     }
 
     public UserAccountEntity updateUserAccountEntity(UserAccountEntity userAccountEntity) {
+        userAccountEntity.username = ManipulateUtil.changeItOrNot(username, userAccountEntity.username);
         userAccountEntity.password = ManipulateUtil.changeItOrNot(password, userAccountEntity.password);
         userAccountEntity.updateAt = ManipulateUtil.changeItOrNot(updateAt, userAccountEntity.updateAt);
-        userAccountEntity.image = ManipulateUtil.changeItOrNot(image, userAccountEntity.image);
         return userAccountEntity;
     }
 }

@@ -2,6 +2,7 @@ package org.gusanta.toserba.handler;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.gusanta.toserba.exception.response.MessageResponse;
@@ -18,6 +19,13 @@ import org.gusanta.toserba.model.body.UserAccountBody;
 public class UserAccountHandler {
     public UserAccountEntity getUserAccountEntityById(Long id) {
         return UserAccountEntity.findUserAccountById(id)
+                .orElseThrow(() -> MessageResponse.idNotFoundException(id));
+    }
+
+    public UserAccountDTO getUserAccountDTO(Long id) {
+        Optional<UserAccountEntity> userAccountEntity = UserAccountEntity.findUserAccountById(id);
+        return userAccountEntity
+                .map(userAccount -> new UserAccountDTO(userAccount))
                 .orElseThrow(() -> MessageResponse.idNotFoundException(id));
     }
 

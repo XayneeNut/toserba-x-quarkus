@@ -24,7 +24,7 @@ import jakarta.persistence.Table;
 public class UserProfileEntity extends PanacheEntityBase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_profile_id")
     public Long userProfileId;
 
@@ -46,7 +46,7 @@ public class UserProfileEntity extends PanacheEntityBase {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "user_account_id")
+    @JoinColumn(name = "user_account_id", referencedColumnName = "user_account_id")
     public UserAccountEntity userAccountEntity;
 
     public static Optional<UserProfileEntity> findUserProfileById(Long id) {

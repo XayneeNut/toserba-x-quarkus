@@ -46,6 +46,12 @@ public class UserAccountController {
     }
 
     @GET
+    @Path("/get-by-profile/{id}")
+    public UserAccountDTO getUserAccountIdByDTO(Long id){
+        return userAccountHandler.getUserAccountDTO(id);
+    }
+
+    @GET
     @Path("/get-email/{email}")
     public UserAccountEntity getUserAccountEntityByEmail(String email) {
         return userAccountHandler.getUserAccountEntityByEmail(email);

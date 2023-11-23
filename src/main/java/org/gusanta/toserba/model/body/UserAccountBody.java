@@ -17,16 +17,13 @@ public record UserAccountBody(
         String username,
         @JsonDeserialize(converter = TimeDeserialize.class) LocalDateTime createdAt,
         @JsonDeserialize(converter = TimeDeserialize.class) @JsonSerialize(converter = TimeSerialize.class) LocalDateTime updateAt,
-        String image,
         Long userProfileEntity,
         UserProfileEntity userProfile) {
-
 
     public UserAccountEntity mapUserAccountEntity() {
         UserAccountEntity userAccountEntity = new UserAccountEntity();
         userAccountEntity.email = email;
         userAccountEntity.password = password;
-        userAccountEntity.image = image;
         userAccountEntity.username = username;
         return userAccountEntity;
     }

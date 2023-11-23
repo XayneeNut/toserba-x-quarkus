@@ -11,7 +11,7 @@ public class UserProfileDTO {
     public String userPhoto;
     public String kodePos;
     public String alamatLengkap;
-    public Long userAccountEntity; // Jangan gunakan objek UserAccountEntity, cukup gunakan ID
+    public Long userAccountEntity;
 
     public UserProfileDTO(UserProfileEntity userProfileEntity) {
         this.userProfileId = userProfileEntity.userProfileId;
@@ -21,7 +21,6 @@ public class UserProfileDTO {
         this.kodePos = userProfileEntity.kodePos;
         this.alamatLengkap = userProfileEntity.alamatLengkap;
 
-        // Inisialisasi ID UserAccountEntity jika userAccountEntity tidak null
         if (userProfileEntity.userAccountEntity != null) {
             this.userAccountEntity = userProfileEntity.userAccountEntity.userAccountId;
         }

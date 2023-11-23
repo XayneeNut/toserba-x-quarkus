@@ -40,6 +40,10 @@ public class UserProfileHandler {
     public UserProfileEntity createUserProfile(UserProfileBody userProfileBody) {
         Objects.requireNonNull(userProfileBody);
         var userAccountEntity = fetchUserAccountEntity(userProfileBody.userAccountId());
+        if (userAccountEntity.isPersistent()) {
+            throw MessageResponse.isPersistenException(userAccountEntity.userAccountId, "userAccountId",
+                    "Satu user hanya bisa memiliki 1 profile");
+        }
         return checkingWithCreate(userProfileBody, userAccountEntity);
     }
 

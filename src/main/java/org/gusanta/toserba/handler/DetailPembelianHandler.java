@@ -23,6 +23,8 @@ public class DetailPembelianHandler {
         return DetailPembelianEntity.findAllDetailPembelianEntities().stream().collect(Collectors.toList());
     }
 
+
+
     public DetailPembelianEntity createDetailPembelian(DetailPembelianBody detailPembelianBody) {
         Objects.requireNonNull(detailPembelianBody);
         var detailPembelian = detailPembelianBody.mapDetailPembelianEntity();

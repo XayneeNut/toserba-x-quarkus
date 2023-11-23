@@ -15,8 +15,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pembelian")
-public class PembelianEntity extends PanacheEntityBase{
-    
+public class PembelianEntity extends PanacheEntityBase {
+
     @Id
     @GeneratedValue(generator = "gusanta_id_gen")
     @Column(name = "pembelian_id")
@@ -26,7 +26,7 @@ public class PembelianEntity extends PanacheEntityBase{
     @JoinColumn(name = "admin_id")
     public AdminAccountEntity adminAccountEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     public UserAccountEntity userAccountEntity;
 
@@ -34,11 +34,15 @@ public class PembelianEntity extends PanacheEntityBase{
     @JoinColumn(name = "detail_pembelian_id")
     public DetailPembelianEntity detailPembelianEntity;
 
-    public static Optional<PembelianEntity> findPembelianById(Long id){
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_profile_id")
+    public UserProfileEntity userProfileEntity;
+
+    public static Optional<PembelianEntity> findPembelianById(Long id) {
         return find("id = ? 1", id).firstResultOptional();
     }
 
-    public static List<PembelianEntity> findAllPembelianEntities(){
+    public static List<PembelianEntity> findAllPembelianEntities() {
         return PembelianEntity.listAll();
     }
 }

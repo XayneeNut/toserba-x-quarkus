@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.gusanta.toserba.core.util.CommonStatic;
 import org.gusanta.toserba.handler.PembelianHandler;
+import org.gusanta.toserba.model.DTO.PembelianDTO;
 import org.gusanta.toserba.model.body.PembelianBody;
 import org.gusanta.toserba.model.entity.PembelianEntity;
 
@@ -30,6 +31,12 @@ public class PembelianController {
     @Path("/get-id/{id}")
     public PembelianEntity getPembelianEntityById(Long id) {
         return pembelianHandler.getPembelianById(id);
+    }
+
+    @GET
+    @Path("/get-dto")
+    public List<PembelianDTO> getAll(){
+        return pembelianHandler.getAll();
     }
 
     @GET
