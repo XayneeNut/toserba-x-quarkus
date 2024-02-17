@@ -36,7 +36,7 @@ public class AdminAccountEntity extends PanacheEntityBase {
     public LocalDateTime updateAt;
 
     public static Optional<AdminAccountEntity> findAdminAccountById(Long id) {
-        return find("accountId = ? 1", id).firstResultOptional();
+        return find("id = ? 1", id).firstResultOptional();
     }
 
     public static Optional<AdminAccountEntity> findAdminAccountByEmail(String email) {
@@ -51,7 +51,7 @@ public class AdminAccountEntity extends PanacheEntityBase {
         return find("username = ? 1", username).firstResultOptional();
     }
 
-    public static List<AdminAccountEntity> findAllAdminAccountEntity(){
+    public static List<AdminAccountEntity> findAllAdminAccountEntity() {
         return AdminAccountEntity.listAll();
     }
 

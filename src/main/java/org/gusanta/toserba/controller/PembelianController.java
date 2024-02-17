@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.gusanta.toserba.core.util.CommonStatic;
 import org.gusanta.toserba.handler.PembelianHandler;
-import org.gusanta.toserba.model.DTO.PembelianDTO;
 import org.gusanta.toserba.model.body.PembelianBody;
 import org.gusanta.toserba.model.entity.PembelianEntity;
 
@@ -15,6 +14,7 @@ import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -29,14 +29,8 @@ public class PembelianController {
 
     @GET
     @Path("/get-id/{id}")
-    public PembelianEntity getPembelianEntityById(Long id) {
+    public PembelianEntity getPembelianEntityById(@PathParam("id") Long id) {
         return pembelianHandler.getPembelianById(id);
-    }
-
-    @GET
-    @Path("/get-dto")
-    public List<PembelianDTO> getAll(){
-        return pembelianHandler.getAll();
     }
 
     @GET
@@ -55,7 +49,7 @@ public class PembelianController {
     @DELETE
     @Transactional
     @Path("/delete/{id}")
-    public Response deletePembelianEntity(Long id) {
+    public Response deletePembelianEntity(@PathParam("id") Long id) {
         return pembelianHandler.deletePembelianById(id);
     }
 

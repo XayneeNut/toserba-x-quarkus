@@ -15,6 +15,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -26,43 +27,37 @@ public class BarangController {
 
     @Inject
     BarangHandler barangHandler;
-    
+
     @GET
     @Path("/get/{id}")
-    public BarangEntity getBarangById(Long id){
+    public BarangEntity getBarangById(@PathParam("id") Long id) {
         return barangHandler.getBarangById(id);
     }
-
-    @GET
-    @Path("/get-by-admin/{id}")
-    public List<BarangEntity> getBarangEntityByAdminId(Long id){
-        return barangHandler.getBarangByAccountId(id);
-    }
-
+    
     @GET
     @Path("/get-all")
-    public List<BarangEntity> getAllBarang(){
+    public List<BarangEntity> getAllBarang() {
         return barangHandler.getAllBarang();
     }
 
     @POST
     @Path("/create")
     @Transactional
-    public BarangEntity createBarang(BarangBody barangBody){
+    public BarangEntity createBarang(BarangBody barangBody) {
         return barangHandler.createBarang(barangBody);
     }
 
     @PUT
     @Path("/update")
     @Transactional
-    public BarangEntity updateBarang(BarangEntity barangEntity){
+    public BarangEntity updateBarang(BarangEntity barangEntity) {
         return barangHandler.updateBarang(barangEntity);
     }
 
     @DELETE
     @Path("/delete/{id}")
     @Transactional
-    public Response deletBarangById(Long id){
+    public Response deletBarangById(Long id) {
         return barangHandler.deleteBarangById(id);
     }
 }

@@ -4,9 +4,8 @@ import org.gusanta.toserba.model.entity.PembelianEntity;
 
 public record PembelianBody(
         Long pembelianId,
-        Long adminAccountEntity,
+        Long barangEntity,
         Long userAccountEntity,
-        Long userProfileEnity,
         Long detailPembelianEntity) {
     public PembelianEntity mapPembelianEntity() {
         var pembelianEntity = new PembelianEntity();

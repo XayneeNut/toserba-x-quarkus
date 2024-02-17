@@ -4,9 +4,13 @@ quarkus:
   log:
     level: INFO
   http:
+    port: 8127
     cors:
       ~: true
-    port: 8127
+      origins: http://localhost:8127,http://localhost:8127/q/swagger-ui
+      headers: accept, authorization, content-type, x-requested-with
+      methods: GET, OPTIONS, POST
+
   datasource:
     db-kind: mysql
     username: root

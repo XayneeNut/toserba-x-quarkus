@@ -5,18 +5,21 @@ import java.util.List;
 import java.util.Optional;
 
 import org.gusanta.toserba.core.util.ManipulateUtil;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.gusanta.toserba.model.entity.enums.GenderEnum;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -37,17 +40,28 @@ public class UserAccountEntity extends PanacheEntityBase {
     @Column(name = "username")
     public String username;
 
+    @CreationTimestamp
     @Column(name = "createdAt")
     public LocalDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(name = "updateAt")
     public LocalDateTime updateAt;
 
-    @OneToOne(mappedBy = "userAccountEntity", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    @JsonbTransient
-    @Fetch(FetchMode.JOIN)
-    public UserProfileEntity userProfileEntity;
+    @Column(name = "birthday")
+    public LocalDateTime birthday;
+
+    @Enumerated
+    @Column(name = "gender", columnDefinition = "tinyint")
+    public GenderEnum gender;
+
+    @OneToMany(mappedBy = "userAccountEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = "userAccountEntity")
+    public List<PembelianEntity> pembelianEntities;
+
+    @OneToMany(mappedBy = "userAccountAddress", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = "userAccountAddress")
+    public List<UserAddressEntity> userAddressEntities;
 
     public static Optional<UserAccountEntity> findUserAccountById(Long id) {
         return find("userAccountId = ? 1", id).firstResultOptional();

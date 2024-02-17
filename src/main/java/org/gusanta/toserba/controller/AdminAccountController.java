@@ -14,6 +14,7 @@ import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -25,54 +26,55 @@ public class AdminAccountController {
 
     @Inject
     AdminAccountHandler adminAccountHandler;
-    
+
     @GET
     @Path("/get-id/{id}")
-    public AdminAccountEntity getAdminAccountEntityById(Long id){
+    public AdminAccountEntity getAdminAccountEntityById(@PathParam("id") Long id) {
         return adminAccountHandler.getAdminAccountEntityById(id);
     }
 
     @GET
     @Path("/get/{email}")
-    public AdminAccountEntity getAdminAccountEntityByEmail(String email){
+    public AdminAccountEntity getAdminAccountEntityByEmail(@PathParam("email") String email) {
         return adminAccountHandler.getAdminAccountEntityByEmail(email);
     }
 
     @GET
     @Path("/get/{username}")
-    public AdminAccountEntity getAdminAccountEntityByUsername(String username){
+    public AdminAccountEntity getAdminAccountEntityByUsername(@PathParam("username") String username) {
         return adminAccountHandler.getAdminAccountEntityByUsername(username);
     }
 
     @GET
     @Path("/get/{password}")
-    public AdminAccountEntity getAdminByPassword(String password){
+    public AdminAccountEntity getAdminByPassword(@PathParam("password") String password) {
         return adminAccountHandler.getAdminAccountEntityByPassword(password);
     }
 
     @GET
     @Path("/get/{email}/{password}")
-    public AdminAccountEntity getAdminAccountEntityByEmailAndPassword(String email, String password){
+    public AdminAccountEntity getAdminAccountEntityByEmailAndPassword(@PathParam("email") String email,
+            @PathParam("password") String password) {
         return adminAccountHandler.getAdminAccountEntityByEmailAndPassword(email, password);
     }
 
     @GET
     @Path("/get-all")
-    public List<AdminAccountEntity> getAllAdminAccountEntities(){
+    public List<AdminAccountEntity> getAllAdminAccountEntities() {
         return adminAccountHandler.getAllAdminAccountEntity();
     }
 
     @POST
     @Path("/create")
     @Transactional
-    public AdminAccountEntity createAdminAccountEntity(AdminAccountBody adminAccountBody){
+    public AdminAccountEntity createAdminAccountEntity(AdminAccountBody adminAccountBody) {
         return adminAccountHandler.createAdminAccountEntity(adminAccountBody);
     }
 
     @DELETE
     @Path("/delete/{id}")
     @Transactional
-    public Response deleteAdminAccountEntityById(Long id){
+    public Response deleteAdminAccountEntityById(@PathParam("id") Long id) {
         return adminAccountHandler.deleteAdminAccountEntityById(id);
     }
 }

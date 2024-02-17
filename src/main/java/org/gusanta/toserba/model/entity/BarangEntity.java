@@ -5,18 +5,26 @@ import java.util.Optional;
 
 import org.gusanta.toserba.core.util.ManipulateUtil;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.Set;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "barang")
 public class BarangEntity extends PanacheEntityBase {
 
@@ -37,9 +45,6 @@ public class BarangEntity extends PanacheEntityBase {
     @Column(name = "kode_barang")
     public String kodeBarang;
 
-    @Column(name = "image_barang")
-    public String imageBarang;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "admin_account_id")
     public AdminAccountEntity adminAccountEntity;
@@ -50,6 +55,17 @@ public class BarangEntity extends PanacheEntityBase {
     @Column(name = "unit")
     public String unit;
 
+    @Column(name = "deskripsi")
+    public String deskripsi;
+
+    @OneToMany(mappedBy = "barangEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = "barangEntity")
+    public List<ImageBarangEntity> imageBarang;
+
+    @OneToMany(mappedBy = "barangEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = {"barangEntity","userAccountEntity"})
+    public Set<PembelianEntity> pembelianFromBarang;
+
     public static Optional<BarangEntity> findBarangEntityById(Long id) {
         return find("idBarang = ? 1", id).firstResultOptional();
     }
@@ -58,46 +74,14 @@ public class BarangEntity extends PanacheEntityBase {
         return BarangEntity.listAll();
     }
 
-    public static List<BarangEntity> findBarangEntityByAccountId(Long accountId) {
-        EntityManager em = getEntityManager();
-        return em
-                .createQuery("SELECT b FROM BarangEntity b WHERE b.adminAccountEntity.accountId = :accountId",
-                        BarangEntity.class)
-                .setParameter("accountId", accountId)
-                .getResultList();
-    }
-
     public BarangEntity updateBarangEntity(BarangEntity barangEntity) {
         barangEntity.namaBarang = ManipulateUtil.changeItOrNot(namaBarang, barangEntity.namaBarang);
         barangEntity.hargaBarang = ManipulateUtil.changeItOrNot(hargaBarang, barangEntity.hargaBarang);
         barangEntity.stokBarang = ManipulateUtil.changeItOrNot(stokBarang, barangEntity.stokBarang);
-        barangEntity.imageBarang = ManipulateUtil.changeItOrNot(imageBarang, barangEntity.imageBarang);
         barangEntity.hargaJual = ManipulateUtil.changeItOrNot(hargaJual, barangEntity.hargaJual);
-        barangEntity.unit = ManipulateUtil.changeItOrNot(unit,barangEntity.unit);
+        barangEntity.unit = ManipulateUtil.changeItOrNot(unit, barangEntity.unit);
+        barangEntity.deskripsi = ManipulateUtil.changeItOrNot(deskripsi, barangEntity.deskripsi);
         return barangEntity;
     }
 
-    public Long getIdBarang() {
-        return this.idBarang;
-    }
-
-    public String getNamaBarang() {
-        return this.namaBarang;
-    }
-
-    public Long getHargaBarang() {
-        return this.hargaBarang;
-    }
-
-    public Long getStokBarang() {
-        return this.stokBarang;
-    }
-
-    public String getKodeBarang() {
-        return this.kodeBarang;
-    }
-
-    public String getImageBarang() {
-        return this.imageBarang;
-    }
 }

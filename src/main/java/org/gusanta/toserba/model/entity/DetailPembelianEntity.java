@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,8 +16,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "detail_pembelian")
-public class DetailPembelianEntity extends PanacheEntityBase{
-    
+public class DetailPembelianEntity extends PanacheEntityBase {
+
     @Id
     @GeneratedValue(generator = "gusanta_id_gen")
     @Column(name = "detail_pembelian_id")
@@ -41,11 +42,11 @@ public class DetailPembelianEntity extends PanacheEntityBase{
     @Column(name = "alamat_pengiriman")
     public String alamatPengiriman;
 
-    public static Optional<DetailPembelianEntity> findDetailPembelianById(Long id){
+    public static Optional<DetailPembelianEntity> findDetailPembelianById(Long id) {
         return find("id = ? 1", id).firstResultOptional();
     }
 
-    public static List<DetailPembelianEntity> findAllDetailPembelianEntities(){
+    public static List<DetailPembelianEntity> findAllDetailPembelianEntities() {
         return DetailPembelianEntity.listAll();
     }
 }

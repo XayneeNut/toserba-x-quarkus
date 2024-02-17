@@ -18,31 +18,28 @@ public class BarangHandler {
         return BarangEntity.findBarangEntityById(id).orElseThrow(() -> MessageResponse.idNotFoundException(id));
     }
 
-    public List<BarangEntity> getBarangByAccountId(Long accountId) {
-        return BarangEntity.findBarangEntityByAccountId(accountId);
-    }
-
     public List<BarangEntity> getAllBarang() {
         return BarangEntity.findAllBarangEntity().stream().collect(Collectors.toList());
     }
 
     public AdminAccountEntity fetchAdminAccountEntity(Long id) {
         return AdminAccountEntity.findAdminAccountById(id)
-                .orElseThrow(() -> MessageResponse.fetchMessageException(id, "not found"));
+                .orElseThrow(() -> MessageResponse.fetchMessageException(id, "adminAccountEntity"));
     }
 
     private BarangEntity checkingWithCreate(BarangBody barangBody, AdminAccountEntity adminAccountEntity) {
+
         var barang = barangBody.mapBarangEntity();
         barang.adminAccountEntity = adminAccountEntity;
         barang.persist();
         return barang;
+
     }
 
     public BarangEntity createBarang(BarangBody barangBody) {
         Objects.requireNonNull(barangBody);
         var adminAccountEntity = fetchAdminAccountEntity(barangBody.adminAccountEntity());
         return checkingWithCreate(barangBody, adminAccountEntity);
-
     }
 
     public BarangEntity updateBarang(BarangEntity barangEntity) {

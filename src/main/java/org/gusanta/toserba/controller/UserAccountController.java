@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.gusanta.toserba.core.util.CommonStatic;
 import org.gusanta.toserba.handler.UserAccountHandler;
-import org.gusanta.toserba.model.DTO.UserAccountDTO;
 import org.gusanta.toserba.model.body.UserAccountBody;
 import org.gusanta.toserba.model.entity.UserAccountEntity;
 
@@ -15,6 +14,7 @@ import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,8 +28,8 @@ public class UserAccountController {
     UserAccountHandler userAccountHandler;
 
     @GET
-    @Path("/get-id/{id}")
-    public UserAccountEntity getUserAccountEntityById(Long id) {
+    @Path("/get/{id}")
+    public UserAccountEntity getUserAccountEntityById(@PathParam("id") Long id) {
         return userAccountHandler.getUserAccountEntityById(id);
     }
 
@@ -40,32 +40,20 @@ public class UserAccountController {
     }
 
     @GET
-    @Path("/get-all-by-profile")
-    public List<UserAccountDTO> getAllByProfile(){
-        return userAccountHandler.getAllUserAccountEntitiesAsDTO();
-    }
-
-    @GET
-    @Path("/get-by-profile/{id}")
-    public UserAccountDTO getUserAccountIdByDTO(Long id){
-        return userAccountHandler.getUserAccountDTO(id);
-    }
-
-    @GET
     @Path("/get-email/{email}")
-    public UserAccountEntity getUserAccountEntityByEmail(String email) {
+    public UserAccountEntity getUserAccountEntityByEmail(@PathParam("email") String email) {
         return userAccountHandler.getUserAccountEntityByEmail(email);
     }
 
     @GET
     @Path("/get-password/{password}")
-    public UserAccountEntity getUserAccountEntityByPassword(String password) {
+    public UserAccountEntity getUserAccountEntityByPassword(@PathParam("password") String password) {
         return userAccountHandler.getUserAccountEntityByPassword(password);
     }
 
     @GET
     @Path("/get/{email}/{password}")
-    public UserAccountEntity getUserAccountEntityByEmailAndPassword(String email, String password) {
+    public UserAccountEntity getUserAccountEntityByEmailAndPassword(@PathParam("email") String email,@PathParam("password") String password) {
         return userAccountHandler.getUserAccountEntityByEmailAndPassword(email, password);
     }
 
@@ -79,7 +67,7 @@ public class UserAccountController {
     @DELETE
     @Transactional
     @Path("/delete/{id}")
-    public Response deleteUserAccountEntityById(Long id) {
+    public Response deleteUserAccountEntityById(@PathParam("id") Long id) {
         return userAccountHandler.deleteUserAccountEntityById(id);
     }
 }

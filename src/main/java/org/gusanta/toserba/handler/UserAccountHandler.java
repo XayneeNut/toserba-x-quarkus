@@ -2,7 +2,6 @@ package org.gusanta.toserba.handler;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.gusanta.toserba.exception.response.MessageResponse;
@@ -12,7 +11,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.Response;
 
-import org.gusanta.toserba.model.DTO.UserAccountDTO;
 import org.gusanta.toserba.model.body.UserAccountBody;
 
 @ApplicationScoped
@@ -22,12 +20,6 @@ public class UserAccountHandler {
                 .orElseThrow(() -> MessageResponse.idNotFoundException(id));
     }
 
-    public UserAccountDTO getUserAccountDTO(Long id) {
-        Optional<UserAccountEntity> userAccountEntity = UserAccountEntity.findUserAccountById(id);
-        return userAccountEntity
-                .map(userAccount -> new UserAccountDTO(userAccount))
-                .orElseThrow(() -> MessageResponse.idNotFoundException(id));
-    }
 
     public UserAccountEntity getUserAccountEntityByEmail(String email) {
         return UserAccountEntity.findUserAccountEntityByEmail(email)
@@ -44,12 +36,6 @@ public class UserAccountHandler {
                 .orElseThrow(() -> MessageResponse.idNotFoundException(password));
     }
 
-    public List<UserAccountDTO> getAllUserAccountEntitiesAsDTO() {
-        List<UserAccountEntity> userAccountEntities = UserAccountEntity.findAllUserAccountEntity();
-        return userAccountEntities.stream()
-                .map(UserAccountDTO::new)
-                .collect(Collectors.toList());
-    }
 
     public UserAccountEntity getUserAccountEntityByEmailAndPassword(String email, String password) {
         var userAccountEntity = getUserAccountEntityByEmail(email);
