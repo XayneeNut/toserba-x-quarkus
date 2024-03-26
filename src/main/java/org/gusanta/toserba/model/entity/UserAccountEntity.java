@@ -1,11 +1,11 @@
 package org.gusanta.toserba.model.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.gusanta.toserba.core.util.ManipulateUtil;
-import org.gusanta.toserba.model.entity.enums.GenderEnum;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,7 +15,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -48,12 +47,9 @@ public class UserAccountEntity extends PanacheEntityBase {
     @Column(name = "updateAt")
     public LocalDateTime updateAt;
 
+    @CreationTimestamp
     @Column(name = "birthday")
-    public LocalDateTime birthday;
-
-    @Enumerated
-    @Column(name = "gender", columnDefinition = "tinyint")
-    public GenderEnum gender;
+    public LocalDate birthday;
 
     @OneToMany(mappedBy = "userAccountEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = "userAccountEntity")

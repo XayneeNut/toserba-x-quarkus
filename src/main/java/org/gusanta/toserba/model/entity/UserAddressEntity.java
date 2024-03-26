@@ -3,6 +3,8 @@ package org.gusanta.toserba.model.entity;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user_address")
+@JsonIgnoreProperties("userAccountAddress")
 public class UserAddressEntity extends PanacheEntityBase {
 
     @Id

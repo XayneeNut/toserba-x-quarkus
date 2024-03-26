@@ -63,7 +63,7 @@ public class BarangEntity extends PanacheEntityBase {
     public List<ImageBarangEntity> imageBarang;
 
     @OneToMany(mappedBy = "barangEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties(value = {"barangEntity","userAccountEntity"})
+    @JsonIgnoreProperties(value = { "barangEntity", "userAccountEntity" })
     public Set<PembelianEntity> pembelianFromBarang;
 
     public static Optional<BarangEntity> findBarangEntityById(Long id) {
@@ -81,6 +81,11 @@ public class BarangEntity extends PanacheEntityBase {
         barangEntity.hargaJual = ManipulateUtil.changeItOrNot(hargaJual, barangEntity.hargaJual);
         barangEntity.unit = ManipulateUtil.changeItOrNot(unit, barangEntity.unit);
         barangEntity.deskripsi = ManipulateUtil.changeItOrNot(deskripsi, barangEntity.deskripsi);
+        return barangEntity;
+    }
+
+    public BarangEntity updateStokBarang(BarangEntity barangEntity) {
+        barangEntity.stokBarang = ManipulateUtil.changeItOrNot(stokBarang, barangEntity.stokBarang);
         return barangEntity;
     }
 

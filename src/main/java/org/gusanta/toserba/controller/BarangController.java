@@ -33,7 +33,7 @@ public class BarangController {
     public BarangEntity getBarangById(@PathParam("id") Long id) {
         return barangHandler.getBarangById(id);
     }
-    
+
     @GET
     @Path("/get-all")
     public List<BarangEntity> getAllBarang() {
@@ -52,6 +52,13 @@ public class BarangController {
     @Transactional
     public BarangEntity updateBarang(BarangEntity barangEntity) {
         return barangHandler.updateBarang(barangEntity);
+    }
+
+    @PUT
+    @Path("/update-stok")
+    @Transactional
+    public BarangEntity updateStok(BarangEntity barangEntity) {
+        return barangHandler.updateStok(barangEntity);
     }
 
     @DELETE

@@ -48,6 +48,12 @@ public class BarangHandler {
         return validatingId;
     }
 
+    public BarangEntity updateStok(BarangEntity barangEntity){
+        var validatingId = getBarangById(barangEntity.idBarang);
+        barangEntity.updateStokBarang(validatingId);
+        return validatingId;
+    }
+
     public Response deleteBarangById(Long id) {
         if (getBarangById(id) != null) {
             BarangEntity.deleteById(id);
