@@ -19,8 +19,7 @@ public class ImageBody {
 
     public ImageBarangEntity mapImageEntity() {
         var imageEntity = new ImageBarangEntity();
-        imageEntity.gambarId = generateId();
-        
+
         return imageEntity;
     }
 

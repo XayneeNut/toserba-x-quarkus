@@ -15,10 +15,20 @@ import org.gusanta.toserba.model.entity.BarangEntity;
 import org.gusanta.toserba.model.entity.ImageBarangEntity;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
 @ApplicationScoped
 public class ImageHandler {
+
+    @Inject
+    EntityManager entityManager;
+
+    public ImageBarangEntity getImageBarangById(Long id) {
+        return ImageBarangEntity.findImageEntityById(id).orElseThrow(() -> MessageResponse.idNotFoundException(id));
+    }
 
     private BarangEntity fetchBarangEntity(Long id) {
         return BarangEntity.findBarangEntityById(id)
@@ -58,6 +68,28 @@ public class ImageHandler {
         checkingWithCreate(imageBody, barangEntity);
 
         return Response.ok("image berhasil dipost").build();
-
     }
+
+    @Transactional
+    public Response deleteImageById(Long id) {
+        var ada = entityManager.find(ImageBarangEntity.class, id);
+
+        if (ada != null) {
+            try {
+                entityManager.remove(ada); // Menghapus entitas dari database
+                entityManager.flush(); // Komit transaksi
+                entityManager.clear(); // Bersihkan konteks
+                String message = "Image with ID " + id + " has been successfully deleted.";
+                return Response.status(Response.Status.OK).entity(message).build();
+            } catch (Exception e) {
+                e.printStackTrace();
+                String errorMessage = "Failed to delete image with ID " + id + ".";
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorMessage).build();
+            }
+        } else {
+            String notFoundMessage = "Image with ID " + id + " not found.";
+            return Response.status(Response.Status.NOT_FOUND).entity(notFoundMessage).build();
+        }
+    }
+
 }

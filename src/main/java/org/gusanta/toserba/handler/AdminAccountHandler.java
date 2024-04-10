@@ -43,9 +43,9 @@ public class AdminAccountHandler {
         var encryptedPasswordFromDb = adminAccountEntity.password;
         boolean passwordMatch = BCrypt.checkpw(password, encryptedPasswordFromDb);
         if (!passwordMatch) {
-            throw MessageResponse.failedToFindDataException(password, "password");
+            throw MessageResponse.gagal(password, "password");
         } else if (!adminAccountEntity.email.equals(email)) {
-            throw MessageResponse.failedToFindDataException(email, "email");
+            throw MessageResponse.gagal("Email & Password");
         }
         return adminAccountEntity;
     }

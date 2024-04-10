@@ -23,17 +23,17 @@ public class UserAccountHandler {
 
     public UserAccountEntity getUserAccountEntityByEmail(String email) {
         return UserAccountEntity.findUserAccountEntityByEmail(email)
-                .orElseThrow(() -> MessageResponse.idNotFoundException(email));
+                .orElseThrow(() -> MessageResponse.gagal(email));
     }
 
     public UserAccountEntity getUserAccountEntityByUsername(String username) {
         return UserAccountEntity.findUserAccountEntityByUsername(username)
-                .orElseThrow(() -> MessageResponse.idNotFoundException(username));
+                .orElseThrow(() -> MessageResponse.gagal(username));
     }
 
     public UserAccountEntity getUserAccountEntityByPassword(String password) {
         return UserAccountEntity.findUserAccountEntityByPassword(password)
-                .orElseThrow(() -> MessageResponse.idNotFoundException(password));
+                .orElseThrow(() -> MessageResponse.gagal(password));
     }
 
 
@@ -42,9 +42,11 @@ public class UserAccountHandler {
         var hashedPasswordFromDatabase = userAccountEntity.password;
         boolean passwordMatch = BCrypt.checkpw(password, hashedPasswordFromDatabase);
         if (!passwordMatch) {
-            throw MessageResponse.failedToFindDataException(password, "password");
+            throw MessageResponse.gagal(password, "password");
         } else if (!userAccountEntity.email.equals(email)) {
-            throw MessageResponse.failedToFindDataException(email, "email");
+            throw MessageResponse.gagal(email, "email");
+        }else if(!userAccountEntity.email.equals(email) && !passwordMatch){
+            throw MessageResponse.gagal("Email & Password");
         }
         return userAccountEntity;
     }
